@@ -12,7 +12,7 @@ if ! command_exists unzip; then
 fi
 
 # Create directory for fonts if it doesn't exist
-mkdir -p ~/.local/share/fonts
+mkdir -p ~/.fonts
 
 # Array of font names
 fonts=( 
@@ -27,7 +27,7 @@ fonts=(
 # Function to check if font directory exists
 check_font_installed() {
     font_name=$1
-    if [ -d ~/.local/share/fonts/$font_name ]; then
+    if [ -d ~/.fonts/$font_name ]; then
         echo "Font $font_name is already installed. Skipping."
         return 0  # Font already installed
     else
@@ -50,7 +50,7 @@ do
         continue
     fi
     
-    unzip -q /tmp/$font.zip -d ~/.local/share/fonts/$font/
+    unzip -q /tmp/$font.zip -d ~/.fonts/$font/
     if [ $? -ne 0 ]; then
         echo "Failed to extract font: $font"
         continue

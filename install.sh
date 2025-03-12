@@ -33,13 +33,8 @@ audio_pkgs=(
 	"pavucontrol"
 	"pipewire"
 	"pipewire-alsa"
-	"pipewire-aptx"
-	"pipewire-jack"
-	"pipewire-libjack-0_3"
-	"pipewire-modules-0_3"
+	"wireplumber"
 	"pipewire-pulseaudio"
-	"pipewire-spa-plugins-0_2"
-	"pipewire-spa-tools"
 	"pipewire-tools"
 )
 
@@ -51,6 +46,7 @@ wm_pkgs=(
 	"picom"
 	"flameshot"
 	"xclip"
+	"xorg-x11-server"
 	"sddm"
 )
 
@@ -66,6 +62,7 @@ user_pkgs=(
 	"npm"
 	"android-tools"
 	"ddcutil"
+	"fastfetch"
 	"pcmanfm"
 	"mtpfs"
 	"gvfs"
@@ -77,6 +74,9 @@ user_pkgs=(
 	"fish"
 	"libappindicator3-1"
 	"mpv"
+	"nwg-look"
+	"NetworkManager-tui"
+	"i2c-tools"
 	)
 
 DIRS=(
@@ -128,18 +128,6 @@ __zypper_install "${user_pkgs[@]}"
 
 PDONE
 
-echo "[General]
-  contrastOpacity=188
-  savePath=/home/$(whoami)/Pictures/screenshots
-  savePathFixed=true
-
-  [Shortcuts]
-  TYPE_SAVE=Return" | tee "$FLAMESHOT_INI_DIR"
-PDONE
-else
-	echo
-fi
-
 # setup bluetooth
 PYELL Setting Up Bluetooth......
 sudo systemctl enable bluetooth --now
@@ -174,4 +162,6 @@ PYELL Getting wallpapers
 git clone https://github.com/rvsmooth/wallpapers ~/Pictures/wallpapers 
 PDONE 
 
-
+PYELL Set default target to graphical
+sudo systemctl set-default graphical.target
+PDONE
