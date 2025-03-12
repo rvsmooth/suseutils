@@ -11,6 +11,7 @@ wm_pkgs=(
 	"redshift"
 	"sddm"
 	"xclip"
+	"xorg-x11-essentials"
 	"xorg-x11-server"
 )
 
