@@ -3,22 +3,20 @@
 source utils.sh
 
 utils_pkgs=(
-
-"android-tools"
-"engrampa"
-"fastfetch"
-"fish"
-"flatpak"
-"fortune"
-"gvfs"
-"libappindicator3-1"
-"mtpfs"
-"NetworkManager-tui"
-"npm"
-"rsync"
-"starship"
-"usbutils"
-
+	"android-tools"
+	"engrampa"
+	"fastfetch"
+	"fish"
+	"flatpak"
+	"fortune"
+	"gvfs"
+	"libappindicator3-1"
+	"mtpfs"
+	"NetworkManager-tui"
+	"npm"
+	"rsync"
+	"starship"
+	"usbutils"
 )
 
 user_dirs=(

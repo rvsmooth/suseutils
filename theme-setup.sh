@@ -8,19 +8,19 @@ ICONS_DIR="$HOME/.icons"
 THEMES_DIR="$HOME/.themes"
 
 cursors=(
-"Bibata-Modern-Classic.tar.xz"
-"Bibata-Modern-Ice.tar.xz"
+	"Bibata-Modern-Classic.tar.xz"
+	"Bibata-Modern-Ice.tar.xz"
 )
 
 themes=(
-"Gruvbox-Dark-BL-MB.zip"
-"Tokyonight-Dark-BL-MB.zip"
+	"Gruvbox-Dark-BL-MB.zip"
+	"Tokyonight-Dark-BL-MB.zip"
 
 )
 
 icons=(
-"kora-1-7-1.tar.xz"
-"papirus-icon-theme-20250201.tar.gz"
+	"kora-1-7-1.tar.xz"
+	"papirus-icon-theme-20250201.tar.gz"
 )
 
 PYELL Set up themes, icons and cursors.

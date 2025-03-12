@@ -3,8 +3,8 @@
 source utils.sh 
 
 packages=(
-"ddcutil"
-"i2c-tools"
+	"ddcutil"
+	"i2c-tools"
 )
 
 PYELL Setting up ddcutil and i2c

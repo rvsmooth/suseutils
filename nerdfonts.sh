@@ -16,11 +16,11 @@ mkdir -p ~/.fonts
 
 # Array of font names
 fonts=( 
-    "CascadiaCode"
-    "FiraCode"  
-    "Hack"  
-    "Inconsolata"
-    "JetBrainsMono" 
+	"CascadiaCode"
+	"FiraCode"  
+	"Hack"  
+	"Inconsolata"
+	"JetBrainsMono" 
     # Add additional fonts here if needed
 )
 
