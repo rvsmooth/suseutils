@@ -89,12 +89,6 @@ DIRS=(
 	"Projects"
 )
 
-# prep + base packages
-# codecs, bluetooth
-# audio packages
-# window manager packages
-# user packages 
-# display manager 
 
 #
 # execution
@@ -165,3 +159,14 @@ PDONE
 PYELL Set default target to graphical
 sudo systemctl set-default graphical.target
 PDONE
+
+PYELL Setting up ddcutil and i2c 
+echo 'SUBSYSTEM=="i2c-dev", KERNEL=="i2c-[0-9]*", ATTRS{class}=="0x030000", TAG+="uaccess"
+SUBSYSTEM=="dri", KERNEL=="card[0-9]*", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/60-ddcutil-i2c.rules
+
+echo 'i2c_dev' | sudo tee /etc/modules-load.d/60-i2c.conf
+
+PDONE
+
+
+
