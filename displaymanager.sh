@@ -14,7 +14,7 @@ if [[ -d "$SDDM_THEME_DIR" ]]; then
 else
 
 	PYELL Installing SDDM...
-	__zypper_install sddm 
+	__zypper_install sddm libqt5-qtquickcontrols2
 	PDONE
 	PYELL Configuring SDDM...
 	sudo git clone https://gitlab.com/dotsmooth/sddm-simplicity-theme "$SDDM_CLONE_DIR"
