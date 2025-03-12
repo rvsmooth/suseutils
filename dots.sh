@@ -57,6 +57,8 @@ function check_for_updates() {
 	fi
 }
 
+PYELL Setting up dotfiles.
+
 if [[ -n "$LOCAL_DOTS_VERSION" ]]; then
 	PYELL Checking installation of rvsmooth 
 	PMAG Dotsmooth is installed already 

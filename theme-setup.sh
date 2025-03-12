@@ -7,7 +7,6 @@ SRC_URL="https://github.com/rvsmooth/wallpapers/releases/latest/download"
 ICONS_DIR="$HOME/.icons"
 THEMES_DIR="$HOME/.themes"
 
-
 cursors=(
 "Bibata-Modern-Classic.tar.xz"
 "Bibata-Modern-Ice.tar.xz"
@@ -24,6 +23,7 @@ icons=(
 "papirus-icon-theme-20250201.tar.gz"
 )
 
+PYELL Set up themes, icons and cursors.
 
 PYELL Preparing env 
 mkdir -p "$WORK_DIR" "$ICONS_DIR" "$THEMES_DIR"
@@ -63,3 +63,7 @@ for package in ${themes[@]};do
 done
 
 cd -
+
+PYELL Setting up wallpapers 
+git clone https://github.com/rvsmooth/wallpapers ~/Pictures/wallpapers 
+PDONE 
