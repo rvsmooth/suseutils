@@ -1,23 +1,7 @@
 #!/bin/bash
 
 # source colors script
-source colors.sh
-
-# functions
-__zypper_install(){
-	local pkgs=("$@")
-	local missing_packages=("")
-
-	for pkg in "${pkgs[@]}"; do 
-		if ! zypper search --installed-only | awk '{print $3}' | grep "$pkg" > /dev/null 2>&1; then 
-			missing_packages+=("$pkg")
-		fi
-	done
-
-
-        PYELL Installing ${missing_packages[@]}
-	sudo zypper --non-interactive --no-gpg-checks install --auto-agree-with-licenses --no-recommends "${missing_packages[@]}" 
-}
+source utils.sh
 
 # arrays
 hw_decoding_pkgs=(

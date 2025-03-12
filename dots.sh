@@ -11,7 +11,7 @@ CONFIGS_BAK="${HOME}/.config-bak"
 LOCAL_DOTS_VINT=$(echo $LOCAL_DOTS_VERSION | tr -d '.')
 UPSTREAM_VINT=$(echo $UPSTREAM_VERSION | tr -d '.')
 
-source colors.sh
+source utils.sh
 
 function prepare_env(){
 	PYELL Backing up old config files into $CONFIGS_BAK
