@@ -60,6 +60,14 @@ __zypper_install(){
 		--no-recommends "${missing_packages[@]}" 
 }
 
+__gh_download(){
+	USERNAME="$1"
+	REPO="$2"
+	ASSET="$3"
+	URL="https://github.com/${USERNAME}/${REPO}/releases/latest/download/${ASSET}" 
+	wget -q --show-progress "$URL"
+}
+
 __ex ()
 {
   if [ -f $1 ] ; then
