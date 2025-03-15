@@ -1,7 +1,7 @@
 #!/usr/bin/env bash 
 
 source utils.sh
-
+LOCAL_BIN="$HOME/.local/bin"
 utils_pkgs=(
 	"android-tools"
 	"engrampa"
@@ -54,3 +54,20 @@ sudo chsh "$USER" -s /usr/bin/fish
 PDONE
 
 
+# install payload-dumper-go
+
+cd /tmp 
+
+[ ! -d "$LOCAL_BIN" ] && mkdir "$LOCAL_BIN"
+
+pkg="payload-dumper-go"
+asset="payload-dumper-go_1.3.0_linux_amd64.tar.gz"
+if command -v "$pkg" > /dev/null 2>&1; then
+    echo "$pkg is installed."
+else
+    echo "$pkg is not installed."
+    __gh_download ssut "$pkg" "$asset"
+    [ -f "$asset" ] && __ex "$asset" && mv "$pkg" "$LOCAL_BIN"
+fi
+
+cd -

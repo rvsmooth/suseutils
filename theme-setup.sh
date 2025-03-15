@@ -6,64 +6,107 @@ WORK_DIR="/tmp/work"
 SRC_URL="https://github.com/rvsmooth/wallpapers/releases/latest/download"
 ICONS_DIR="$HOME/.icons"
 THEMES_DIR="$HOME/.themes"
-
-cursors=(
-	"Bibata-Modern-Classic.tar.xz"
-	"Bibata-Modern-Ice.tar.xz"
+WALLS_REPO="https://github.com/rvsmooth/wallpapers"
+WALL_DIR="$HOME/Pictures/wallpapers"
+DIRS=(
+	"/usr/share/themes"
+	"$HOME/.local/share/themes"
+	"$HOME/.themes"
+	"/usr/share/icons"
+	"$HOME/.local/share/icons"
+	"$HOME/.icons"
 )
 
-themes=(
-	"Gruvbox-Dark-BL-MB.zip"
-	"Tokyonight-Dark-BL-MB.zip"
+# declare dictionaries
+declare -A cursors 
+declare -A icons 
+declare -A themes
 
-)
+# cursors
+cursors["Bibata-Modern-Ice.tar.xz"]="Bibata-Modern-Ice"
+cursors["Bibata-Modern-Classic.tar.xz"]="Bibata-Modern-Classic"
 
-icons=(
-	"kora-1-7-1.tar.xz"
-	"papirus-icon-theme-20250201.tar.gz"
-)
+# icons 
+icons["kora-1-7-1.tar.xz"]="kora kora-light kora-light-panel"
+icons["papirus-icon-theme-20250201.tar.gz"]="Papirus Papirus-Dark Papirus-Light ePapirus ePapirus-Dark"
 
-PYELL Set up themes, icons and cursors.
+# themes
+themes["Gruvbox-Dark-BL-MB.zip"]="Gruvbox-Dark  Gruvbox-Dark-hdpi  Gruvbox-Dark-xhdpi"
+themes["Tokyonight-Dark-BL-MB.zip"]="Tokyonight-Dark Tokyonight-Dark-hdpi Tokyonight-Dark-xhdpi"
 
-PYELL Preparing env 
-mkdir -p "$WORK_DIR" "$ICONS_DIR" "$THEMES_DIR"
-PDONE 
-
-PYELL Fetching assets 
-
-cd "$WORK_DIR" 
-
-assets=("${cursors[@]}" "${themes[@]}" "${icons[@]}")
-
-for package in ${assets[@]}; do
+function download_asset(){
 	if [ -e $WORK_DIR/$package  ]; then 
-		PYELL $package is already installed 
-	else 
-		wget -q --show-progress "$SRC_URL/$package"
+		PYELL $package is already downloaded
+	else
+		__gh_download rvsmooth wallpapers "$package"
 		if [ $? -ne 0 ]; then
 			echo "$SRC_URL/$package"
 			echo "Failed to download $package"
 			continue
 		fi
+
 	fi
 
-done 
+}
 
-icon_assets=("${cursors[@]}" "${icons[@]}")
+function setup_asset(){
+	array="$1"
+	declare -n array_final="$array"
+	for package in ${!array_final[@]}; do 
+		if [[ "$array" = "cursors" || "$array" == "icons" ]]; then 
+			for value in ${array_final[$package]}; do 
+				if [[ -d "${DIRS[3]}/$value" || -d "${DIRS[4]}/$value" || -d "${DIRS[5]}/$value" ]]; then
+					echo "$value exists"
+				else 
+					echo "$value does not exist"
+					download_asset
+					export MOVE_ICONS=1
 
-PYELL Setting up cursors 
-for package in ${icon_assets[@]}; do 
-	ex $package 
-	mv */ "$ICONS_DIR"
-done
+				fi
+			done
+			__ex $package
+			if [[ "$MOVE_ICONS" == "1" ]]; then  
+				mv */ $ICONS_DIR 
+			else 
+				echo 
+			fi
+		elif 
+			[[ "$array" == "themes" ]]; then 
+			for value in ${array_final[$package]}; do 
+				if [[ -d "${DIRS[0]}/$value" || -d "${DIRS[1]}/$value" || -d "${DIRS[2]}/$value" ]]; then
+					echo "$value exists"
+				else 
+					echo "$value does not exist"
+					download_asset
+					export MOVE_THEMES=1
 
-for package in ${themes[@]};do 
-	ex $package 
-	mv */ "$THEMES_DIR"
-done
+				fi
+			done
+			__ex $package
+			if [[ "$MOVE_THEMES" == "1" ]]; then 
+				mv */ $THEMES_DIR 
+			else 
+				echo 
+			fi
+		else 
+			echo "Undefined"
+		fi
 
+	done
+}
+
+# create directories if they do not exist
+
+[[ ! -d "$THEMES_DIR" || ! -d "$ICONS_DIR" ]] && mkdir -p $THEMES_DIR $ICONS_DIR 
+
+[ ! -d "$WORK_DIR" ] && mkdir -p "$WORK_DIR"
+
+# switch to work dir 
+cd "$WORK_DIR" 
+setup_asset cursors
+setup_asset icons 
+setup_asset themes
 cd -
 
-PYELL Setting up wallpapers 
-git clone https://github.com/rvsmooth/wallpapers ~/Pictures/wallpapers 
-PDONE 
+# clone wallpapers 
+[ ! -d "$WALL_DIR" ] && git clone "$WALLS_REPO" "$WALL_DIR" 
