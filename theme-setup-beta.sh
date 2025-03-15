@@ -1,22 +1,5 @@
 #!/bin/bash
 
-# some notes for me
-## list values as an array
-#echo "List values as an array"
-#for cursor in ${cursors[@]}; do 
-#	echo $cursor 
-#done
-#
-#echo 
-#
-## list keys as an array
-#echo "List keys as an array"
-#for cursor in ${!cursors[@]}; do 
-#	echo $cursor #cursor file 
-#	echo ${cursors[$cursor]} # cursor dir 
-#done
-#
-#
 source utils.sh
 
 WORK_DIR="/tmp/work"
@@ -32,14 +15,21 @@ DIRS=(
 	"$HOME/.icons"
 )
 
+# declare dictionaries
 declare -A cursors 
 declare -A icons 
 declare -A themes
+
+# cursors
 cursors["Bibata-Modern-Ice.tar.xz"]="Bibata-Modern-Ice"
 cursors["Bibata-Modern-Classic.tar.xz"]="Bibata-Modern-Classic"
+
+# icons 
 icons["kora-1-7-1.tar.xz"]="kora kora-light kora-light-panel"
 icons["papirus-icon-theme-20250201.tar.gz"]="Papirus Papirus-Dark Papirus-Light ePapirus ePapirus-Dark"
-themes["Gruvbox-Dark-BL-MB.zip"]="Gruvbox-Dark Gruvbox-Dark-hdpi Gruvbox-dark-xhdpi"
+
+# themes
+themes["Gruvbox-Dark-BL-MB.zip"]="Gruvbox-Dark  Gruvbox-Dark-hdpi  Gruvbox-Dark-xhdpi"
 themes["Tokyonight-Dark-BL-MB.zip"]="Tokyonight-Dark Tokyonight-Dark-hdpi Tokyonight-Dark-xhdpi"
 
 function download_asset(){
@@ -63,29 +53,39 @@ function setup_asset(){
 	for package in ${!array_final[@]}; do 
 		if [[ "$array" = "cursors" || "$array" == "icons" ]]; then 
 			for value in ${array_final[$package]}; do 
-				if [[ -d "${DIRS[3]}/$value" || -d "${DIRS[4]}/value" || -d "${DIRS[5]}/$value" ]]; then
+				if [[ -d "${DIRS[3]}/$value" || -d "${DIRS[4]}/$value" || -d "${DIRS[5]}/$value" ]]; then
 					echo "$value exists"
 				else 
 					echo "$value does not exist"
 					download_asset
-					ex $package
+					export MOVE_ICONS=1
 
 				fi
 			done
-			mv */ $ICONS_DIR 
+			ex $package
+			if [[ "$MOVE_ICONS" == "1" ]]; then  
+				mv */ $ICONS_DIR 
+			else 
+				echo 
+			fi
 		elif 
 			[[ "$array" == "themes" ]]; then 
 			for value in ${array_final[$package]}; do 
-				if [[ -d "${DIRS[3]}/$value" || -d "${DIRS[4]}/value" || -d "${DIRS[5]}/$value" ]]; then
+				if [[ -d "${DIRS[0]}/$value" || -d "${DIRS[1]}/$value" || -d "${DIRS[2]}/$value" ]]; then
 					echo "$value exists"
 				else 
 					echo "$value does not exist"
 					download_asset
-					ex $package
+					export MOVE_THEMES=1
 
 				fi
 			done
-			mv */ $THEMES_DIR 
+			ex $package
+			if [[ "$MOVE_THEMES" == "1" ]]; then 
+				mv */ $THEMES_DIR 
+			else 
+				echo 
+			fi
 		else 
 			echo "Undefined"
 		fi
@@ -93,9 +93,14 @@ function setup_asset(){
 	done
 }
 
-mkdir -p $THEMES_DIR $ICONS_DIR 
-mkdir /tmp/work 
-cd /tmp/work 
+# create directories if they do not exist
+
+[[ ! -d "$THEMES_DIR" || ! -d "$ICONS_DIR" ]] && mkdir -p $THEMES_DIR $ICONS_DIR 
+
+[ ! -d "$WORK_DIR" ] && mkdir -p "$WORK_DIR"
+
+# switch to work dir 
+cd "$WORK_DIR" 
 setup_asset cursors
 setup_asset icons 
 setup_asset themes
