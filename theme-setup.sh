@@ -6,6 +6,8 @@ WORK_DIR="/tmp/work"
 SRC_URL="https://github.com/rvsmooth/wallpapers/releases/latest/download"
 ICONS_DIR="$HOME/.icons"
 THEMES_DIR="$HOME/.themes"
+WALLS_REPO="https://github.com/rvsmooth/wallpapers"
+WALL_DIR="$HOME/Pictures/wallpapers"
 DIRS=(
 	"/usr/share/themes"
 	"$HOME/.local/share/themes"
@@ -105,3 +107,6 @@ setup_asset cursors
 setup_asset icons 
 setup_asset themes
 cd -
+
+# clone wallpapers 
+[ ! -d "$WALL_DIR" ] && git clone "$WALLS_REPO" "$WALL_DIR" 
