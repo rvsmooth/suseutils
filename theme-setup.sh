@@ -62,7 +62,7 @@ function setup_asset(){
 
 				fi
 			done
-			ex $package
+			__ex $package
 			if [[ "$MOVE_ICONS" == "1" ]]; then  
 				mv */ $ICONS_DIR 
 			else 
@@ -80,7 +80,7 @@ function setup_asset(){
 
 				fi
 			done
-			ex $package
+			__ex $package
 			if [[ "$MOVE_THEMES" == "1" ]]; then 
 				mv */ $THEMES_DIR 
 			else 

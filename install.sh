@@ -23,7 +23,6 @@ source displaymanager.sh
 source dots.sh
 source nerdfonts.sh
 source theme-setup.sh
-source utils.sh
 
 
 
