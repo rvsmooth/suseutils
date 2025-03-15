@@ -65,7 +65,12 @@ __gh_download(){
 	REPO="$2"
 	ASSET="$3"
 	URL="https://github.com/${USERNAME}/${REPO}/releases/latest/download/${ASSET}" 
-	wget -q --show-progress "$URL"
+
+	if [[ -e "$ASSET" ]]; then 
+		PYELL $ASSET is downloaded already 
+	else 
+		wget -q --show-progress "$URL"
+	fi
 }
 
 __ex ()
