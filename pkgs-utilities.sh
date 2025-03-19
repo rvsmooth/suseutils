@@ -4,19 +4,27 @@ source utils.sh
 LOCAL_BIN="$HOME/.local/bin"
 utils_pkgs=(
 	"android-tools"
+	"at-spi2-core"
 	"engrampa"
 	"fastfetch"
 	"fish"
 	"flatpak"
 	"fortune"
+	"gnome-keyring"
 	"gvfs"
 	"libappindicator3-1"
+	"libgthread-2_0-0"
+	"libnotify"
+	"libsecret"
 	"mtpfs"
+	"mtpfs-tools"
 	"NetworkManager-tui"
 	"npm"
+	"polkit-gnome"
 	"rsync"
 	"starship"
 	"usbutils"
+	"xorg-x11-essentials"
 )
 
 user_dirs=(
