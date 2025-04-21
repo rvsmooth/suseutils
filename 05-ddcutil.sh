@@ -25,5 +25,6 @@ else
 	PYELL i2c_dev is already set to auto load 
 	PYELL aborting operation
 
+fi
 PDONE
 
