@@ -24,6 +24,8 @@ wm_pkgs_hypr="
   hyprland
   hyprland-qtutils
   hyprland-wallpapers
+  hyprlock 
+  hyprpaper
   libdrm-tools
   libhyprutils4
   libpng16-16
@@ -31,7 +33,7 @@ wm_pkgs_hypr="
   libxml2-tools
   llvm
   slurp
-"
+ "
 
 PYELL Installing window manager packages
 for package in "$wm_pkgs_hypr"; do
