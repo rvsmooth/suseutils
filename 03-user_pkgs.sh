@@ -3,22 +3,28 @@
 source utils.sh
 
 user_pkgs="
-  btop
-  calibre
-  kitty
-  libreoffice
-  libreoffice-gtk3
-  libreoffice-calc
-  libreoffice-draw
-  libreoffice-impress
-  mpv
-  neovim
-  nwg-look
-  pcmanfm
-  qbittorrent
-  rofi
-  viewnior
-"
+ btop
+ calibre
+ kitty
+ libreoffice
+ libreoffice-calc
+ libreoffice-draw
+ libreoffice-gtk3
+ libreoffice-impress
+ mpv
+ neovim
+ nwg-look
+ qbittorrent
+ rofi
+ thunar 
+ thunar-archive-plugin 
+ thunar-volman 
+ tumbler 
+ tumbler-folder-thumbnailer 
+ tumbler-lang 
+ tumbler-webp-thumbnailer
+ viewnior
+ "
 
 PYELL Installing user packages
 for package in $user_pkgs; do
