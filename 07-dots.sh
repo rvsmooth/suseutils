@@ -30,7 +30,7 @@ function bak_old_repo() {
 
 function get_dots() {
   PYELL Installing dotfiles as a bare git repo
-  git clone https://github.com/rvsmooth/dotfiles -b main $DOTS_CLONE_DIR
+  git clone https://github.com/rvsmooth/dotfiles -b staging $DOTS_CLONE_DIR
   cd $DOTS_CLONE_DIR || {
     PRED "Failed to navigate to dotfiles directory."
     exit 1

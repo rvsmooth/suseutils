@@ -2,30 +2,31 @@
 
 source utils.sh
 LOCAL_BIN="$HOME/.local/bin"
-utils_pkgs=(
-  "android-tools"
-  "at-spi2-core"
-  "engrampa"
-  "fastfetch"
-  "fish"
-  "flatpak"
-  "fortune"
-  "gnome-keyring"
-  "gvfs"
-  "libappindicator3-1"
-  "libgthread-2_0-0"
-  "libnotify"
-  "libsecret"
-  "simple-mtpfs"
-  "NetworkManager-tui"
-  "NetworkManager-wwan"
-  "npm"
-  "polkit-gnome"
-  "rsync"
-  "starship"
-  "usbutils"
-  "xorg-x11-essentials"
-)
+utils_pkgs="
+  android-tools
+  at-spi2-core
+  engrampa
+  fastfetch
+  fish
+  flatpak
+  fortune
+  gnome-keyring
+  gvfs
+  ImageMagick
+  libappindicator3-1
+  libgthread-2_0-0
+  libnotify
+  libsecret
+  simple-mtpfs
+  NetworkManager-tui
+  NetworkManager-wwan
+  npm
+  polkit-gnome
+  rsync
+  starship
+  usbutils
+  xorg-x11-essentials
+"
 
 user_dirs=(
   "Android"
@@ -38,9 +39,9 @@ user_dirs=(
 )
 
 PYELL Installing utilities
-
-__zypper_install "${utils_pkgs[@]}"
-
+for package in $utils_pkgs; do
+  __zypper_install $package
+done
 PDONE
 
 # setup bluetooth
