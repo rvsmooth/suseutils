@@ -5,6 +5,7 @@ LOCAL_BIN="$HOME/.local/bin"
 utils_pkgs="
   android-tools
   at-spi2-core
+  dunst
   engrampa
   fastfetch
   fish
@@ -15,7 +16,7 @@ utils_pkgs="
   ImageMagick
   libappindicator3-1
   libgthread-2_0-0
-  libnotify
+  libnotify-tools
   libsecret
   simple-mtpfs
   NetworkManager-tui

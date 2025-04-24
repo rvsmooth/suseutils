@@ -16,7 +16,6 @@ wm_pkgs="
 "
 
 wm_pkgs_hypr="
-  dunst
   gegl
   grim
   hyprcursor
