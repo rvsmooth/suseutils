@@ -5,6 +5,7 @@ LOCAL_BIN="$HOME/.local/bin"
 utils_pkgs="
   android-tools
   at-spi2-core
+  cliphist
   dunst
   engrampa
   fastfetch
