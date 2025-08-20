@@ -11,7 +11,8 @@
     "libpng16-16",
     "libxkbcommon0",
     "libxml2-tools",
-    "llvm"
+    "llvm",
+    "rofi-wayland"
   ],
   "qtile": [
     "feh",
@@ -47,7 +48,6 @@
     "fastfetch",
     "fish",
     "flatpak",
-    "fortune",
     "gnome-keyring",
     "gvfs",
     "libappindicator3-1",
@@ -74,7 +74,6 @@
     "nwg-look",
     "pcmanfm",
     "qbittorrent",
-    "rofi",
     "viewnior"
   ]
 }
