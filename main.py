@@ -1,8 +1,8 @@
-import json
-import subprocess
-import requests
-import os
-from prompt import results
+from json import load
+from subprocess import run
+from requests import get
+from os import path
+from prompt import selection
 
 
 def zyppstall(pkglist=None, pkg=None):
@@ -17,33 +17,33 @@ def zyppstall(pkglist=None, pkg=None):
     ]
     if pkglist:
         for i in app_list[pkglist]:
-            cmdf = cmd[:]
-            cmdf.append(i)
+            cmd_list = cmd[:]
+            cmd_list.append(i)
             echo = ["echo", "installing", i]
-            subprocess.run(echo)
-            subprocess.run(cmdf)
+            run(echo)
+            run(cmd_list)
     elif pkg:
-        cmdn = cmd[:]
-        cmdn.append(pkg)
+        cmd_pkg = cmd[:]
+        cmd_pkg.append(pkg)
         echo = ["echo", "installing", pkg]
-        subprocess.run(echo)
-        subprocess.run(cmdn)
+        run(echo)
+        run(cmd_pkg)
 
 
 def zypprm(pkg):
-    cmd_1 = ["rpm", "-qa", "|", pkg]
-    package = subprocess.run(cmd_1)
+    cmd = ["rpm", "-qa", "|", pkg]
+    package = run(cmd)
     if package:
-        cmd = ["sudo", "zypper", "--non-interactive", "remove", pkg]
+        cmd_rm = ["sudo", "zypper", "--non-interactive", "remove", pkg]
         echo = ["echo", "removing", pkg]
-        subprocess.run(echo)
-        subprocess.run(cmd)
+        run(echo)
+        run(cmd_rm)
     else:
-        subprocess.run(["echo", pkg, "is not installed!!"])
+        run(["echo", pkg, "is not installed!!"])
 
 
 def get_pkgs():
-    x = requests.get(
+    x = get(
         "https://raw.githubusercontent.com/rvsmooth/suseutils/refs/heads/main/packages.json"
     )
 
@@ -51,17 +51,17 @@ def get_pkgs():
         print(x.text, file=file_object)
 
 
-if os.path.exists("/tmp/packages.json"):
+if path.exists("/tmp/packages.json"):
     with open("/tmp/packages.json", "r") as applist:
-        app_list = json.load(applist)
+        app_list = load(applist)
 else:
     get_pkgs()
 
 # install chosen WMs
 # exit if none is chosen
 #
-if results:
-    for i in results:
+if selection:
+    for i in selection:
         zyppstall(i)
 
 # Fix for fish shell
