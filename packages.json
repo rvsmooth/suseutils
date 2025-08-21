@@ -1,5 +1,6 @@
 {
   "hyprland": [
+    "gammastep",
     "gegl",
     "hyprcursor",
     "hypridle",
@@ -12,7 +13,9 @@
     "libxkbcommon0",
     "libxml2-tools",
     "llvm",
-    "rofi-wayland"
+    "rofi-wayland",
+    "swww",
+    "wl-clipboard"
   ],
   "qtile": [
     "feh",
@@ -56,6 +59,7 @@
     "libsecret",
     "mtpfs",
     "mtpfs-tools",
+    "newt",
     "NetworkManager-tui",
     "npm",
     "polkit-gnome",
