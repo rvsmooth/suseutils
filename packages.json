@@ -2,6 +2,7 @@
   "hyprland": [
     "gammastep",
     "gegl",
+    "grim",
     "hyprcursor",
     "hypridle",
     "hyprland",
@@ -14,8 +15,12 @@
     "libxml2-tools",
     "llvm",
     "rofi-wayland",
+    "slurp",
     "swww",
-    "wl-clipboard"
+    "waybar",
+    "wget",
+    "wl-clipboard",
+    "xdg-desktop-portal-hyprland"
   ],
   "qtile": [
     "feh",
@@ -46,19 +51,23 @@
   "utilities": [
     "android-tools",
     "at-spi2-core",
+    "bluez",
     "dash",
+    "ddcutil",
+    "dunst",
     "engrampa",
     "fastfetch",
     "fish",
     "flatpak",
     "gnome-keyring",
     "gvfs",
+    "gcc",
+    "jq",
     "libappindicator3-1",
     "libgthread-2_0-0",
     "libnotify",
     "libsecret",
-    "mtpfs",
-    "mtpfs-tools",
+    "mtp-tools",
     "newt",
     "NetworkManager-tui",
     "npm",
@@ -66,6 +75,7 @@
     "rsync",
     "starship",
     "usbutils",
+    "udisks2",
     "xorg-x11-essentials"
   ],
   "user": [
@@ -73,11 +83,22 @@
     "calibre",
     "kitty",
     "libreoffice",
+    "libreoffice-calc",
+    "libreoffice-draw",
+    "libreoffice-gtk3",
+    "libreoffice-impress",
     "mpv",
     "neovim",
     "nwg-look",
-    "pcmanfm",
     "qbittorrent",
+    "thunar",
+    "thunar-volman",
+    "thunar-archive-plugin",
     "viewnior"
+  ],
+  "remove": [
+    "busybox-gzip",
+    "mandoc",
+    "busybox-less"
   ]
 }
