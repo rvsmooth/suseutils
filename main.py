@@ -1,8 +1,7 @@
 import json
 import subprocess
-
-with open("packages.json", "r") as applist:
-    app_list = json.load(applist)
+import requests
+import os
 
 def zyppstall(pkglist):
     for i in app_list[pkglist]:
@@ -11,6 +10,18 @@ def zyppstall(pkglist):
         echo = ["echo", "installing", i]
         subprocess.run(echo)
         subprocess.run(cmd)
+
+def get_pkgs():
+    x = requests.get('https://raw.githubusercontent.com/rvsmooth/suseutils/refs/heads/main/packages.json')
+
+    with open(r'/tmp/packages.json', 'w')as file_object:
+        print(x.text, file=file_object)
+
+if os.path.exists("/tmp/packages.json"):
+    with open("/tmp/packages.json", "r") as applist:
+        app_list = json.load(applist)
+else:
+    get_pkgs()
 
 from prompt import results
 
