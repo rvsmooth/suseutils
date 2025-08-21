@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 from prompt_toolkit.formatted_text import HTML
 from prompt_toolkit.shortcuts import checkboxlist_dialog, message_dialog
 from prompt_toolkit.styles import Style
@@ -34,5 +34,5 @@ else:
         title="You Haven't Selected Anything!!",
         text="Aborting!!"
     ).run()
-    exit(0)
+    sys.exit(0)
 
