@@ -97,7 +97,7 @@
     "MozillaThunderbird",
     "viewnior"
   ],
-  "remove": [
+  "remove-list": [
     "busybox-gzip",
     "mandoc",
     "busybox-less"

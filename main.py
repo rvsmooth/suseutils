@@ -6,6 +6,10 @@ from prompt import selection
 
 
 def zyppstall(pkglist=None, pkg=None):
+    """
+    A function to utilize zypper to perform installations
+    on lists and standalone packages provided as arguments
+    """
     cmd = [
         "sudo",
         "zypper",
@@ -30,50 +34,57 @@ def zyppstall(pkglist=None, pkg=None):
         run(cmd_pkg)
 
 
-def zypprm(pkg):
-    cmd = ["rpm", "-qa", "|", pkg]
-    package = run(cmd)
-    if package:
-        cmd_rm = ["sudo", "zypper", "--non-interactive", "remove", pkg]
-        echo = ["echo", "removing", pkg]
-        run(echo)
-        run(cmd_rm)
-    else:
-        run(["echo", pkg, "is not installed!!"])
+def zypprm(pkglist=None, pkg=None):
+    """
+    A function to utilize zypper to perform deinstallations
+    on lists and standalone packages provided as arguments
+    """
+    check_pkg = ["rpm", "-qa", "|"]
+    rm_pkg = ["sudo", "zypper", "rm", "--no-confirm"]
+    if pkglist:
+        chk_cmd = check_pkg[:]
+        for i in app_list[pkglist]:
+            chk_cmd.append(i)
+            is_available = run(chk_cmd)
+            if is_available:
+                rm_pkg_cmd = rm_pkg[:]
+                rm_pkg_cmd.append(i)
+                run(rm_pkg_cmd)
+    elif pkg:
+        rm_pkg_cmd = rm_pkg[:]
+        rm_pkg_cmd.append(pkg)
+        run(rm_pkg_cmd)
 
 
-def get_pkgs():
-    x = get(
-        "https://raw.githubusercontent.com/rvsmooth/suseutils/refs/heads/main/packages.json"
-    )
-
+def get_pkgs(url):
+    x = get(url)
+    # Save the file that is read as /tmp/packages.json
     with open(r"/tmp/packages.json", "w") as file_object:
         print(x.text, file=file_object)
 
 
+# Check for the existence of packages.json
+# Download if it doesn't exist
 if path.exists("/tmp/packages.json"):
     with open("/tmp/packages.json", "r") as applist:
         app_list = load(applist)
 else:
-    get_pkgs()
+    get_pkgs(
+        "https://raw.githubusercontent.com/rvsmooth/suseutils/refs/heads/main/packages.json"
+    )
 
-# install chosen WMs
-# exit if none is chosen
-#
+# Install softwares based on the initial selection
+# perfomed with a prompt
 if selection:
     for i in selection:
         zyppstall(i)
 
-# Fix for fish shell
-# busybox-gzip conflicts with dependencies of fish
-zypprm("busybox-gzip")
-
-## Fix for installation of man
-## remove conflicting packages
-zypprm("mandoc")
-zypprm("busybox-less")
-
 # Install common packages
-zyppstall("multimedia")
-zyppstall("utilities")
-zyppstall("user")
+options = ["multimedia", "utilities", "user"]
+for i in options:
+    zyppstall(i)
+
+# Removes all the packages under remove-list in packages.json
+# It's to be used to remove unneeded packages
+# Or packages creating conflicts
+zypprm("remove-list")
