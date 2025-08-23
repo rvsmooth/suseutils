@@ -20,14 +20,15 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
     if install and pkg_list:
         for package in app_list[pkg_list]:
             check_cmd = f"rpm -qa | grep {package}"
-            pkg = package
             is_available = run(check_cmd, capture_output=True, shell=True)
             if is_available.returncode == 0:
                 print(package, "is already installed")
             else:
                 print("Installing", package)
                 install_cmd.append(package)
-                run(install_cmd, capture_output=True)
+                install = run(install_cmd, capture_output=True)
+                with open(r"error.txt", "w") as file_object:
+                    print(install.stderr, file=file_object)
 
     elif install and pkg:
         check_cmd = f"rpm -qa | grep {pkg}"
@@ -38,17 +39,20 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
         else:
             print("Installing", pkg)
             install_cmd.append(pkg)
-            run(install_cmd, capture_output=True)
+            install = run(install_cmd, capture_output=True)
+            with open(r"error.txt", "w") as file_object:
+                print(install.stderr, file=file_object)
 
     elif remove and pkg_list:
         for package in app_list[pkg_list]:
             check_cmd = f"rpm -qa | grep {package}"
-            pkg = package
             is_available = run(check_cmd, capture_output=True, shell=True)
             if is_available.returncode == 0:
                 print(package, "is found")
                 remove_cmd.append(package)
-                run(remove_cmd, capture_output=True)
+                remove = run(remove_cmd, capture_output=True)
+                with open(r"error.txt", "w") as file_object:
+                    print(remove.stderr, file=file_object)
             else:
                 print(package, "not found")
 
@@ -59,7 +63,9 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
         if is_available.returncode == 0:
             remove_cmd.append(pkg)
             print(pkg, "is found")
-            run(remove_cmd, capture_output=True)
+            remove = run(remove_cmd, capture_output=True)
+            with open(r"error.txt", "w") as file_object:
+                print(remove.stderr, file=file_object)
         else:
             print(pkg, "not found")
 
@@ -96,3 +102,6 @@ for i in options:
 # It's to be used to remove unneeded packages
 # Or packages creating conflicts
 zypp(remove=True, pkg_list="remove-list")
+
+# Error check message
+print("Check error.txt for any errors, before logging into ur system")
