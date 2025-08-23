@@ -86,6 +86,8 @@ else:
     get_pkgs(
         "https://raw.githubusercontent.com/rvsmooth/suseutils/refs/heads/main/packages.json"
     )
+    with open("/tmp/packages.json", "r") as applist:
+        app_list = load(applist)
 
 # Install softwares based on the initial selection
 # perfomed with a prompt
