@@ -1,7 +1,7 @@
 from json import load
 from subprocess import run
 from requests import get
-from os import path
+import os
 from prompt import selection
 
 
@@ -23,15 +23,25 @@ def zyppstall(pkglist=None, pkg=None):
         for i in app_list[pkglist]:
             cmd_list = cmd[:]
             cmd_list.append(i)
-            echo = ["echo", "installing", i]
-            run(echo)
-            run(cmd_list)
+            print("Installing", i)
+            x = run(cmd_list, capture_output=True, text=True)
+            with open(r"error_packages.txt", "a") as file_object:
+                print(
+                    x.stderr,
+                    file=file_object,
+                )
+                if x.stderr:
+                    print(i, "is not installed \n")
+
     elif pkg:
         cmd_pkg = cmd[:]
         cmd_pkg.append(pkg)
-        echo = ["echo", "installing", pkg]
-        run(echo)
-        run(cmd_pkg)
+        print("Installing", pkg)
+        x = run(cmd_pkg, capture_output=True, text=True)
+        with open(r"error_packages.txt", "a") as file_object:
+            print(x.stderr, file=file_object)
+        if x.stderr:
+            print(pkg, "is not installed \n")
 
 
 def zypprm(pkglist=None, pkg=None):
@@ -45,7 +55,7 @@ def zypprm(pkglist=None, pkg=None):
         chk_cmd = check_pkg[:]
         for i in app_list[pkglist]:
             chk_cmd.append(i)
-            is_available = run(chk_cmd)
+            is_available = run(chk_cmd, capture_output=True)
             if is_available:
                 rm_pkg_cmd = rm_pkg[:]
                 rm_pkg_cmd.append(i)
@@ -53,7 +63,7 @@ def zypprm(pkglist=None, pkg=None):
     elif pkg:
         rm_pkg_cmd = rm_pkg[:]
         rm_pkg_cmd.append(pkg)
-        run(rm_pkg_cmd)
+        run(rm_pkg_cmd, capture_output=True)
 
 
 def get_pkgs(url):
@@ -65,7 +75,7 @@ def get_pkgs(url):
 
 # Check for the existence of packages.json
 # Download if it doesn't exist
-if path.exists("/tmp/packages.json"):
+if os.path.exists("/tmp/packages.json"):
     with open("/tmp/packages.json", "r") as applist:
         app_list = load(applist)
 else:
