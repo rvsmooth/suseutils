@@ -25,8 +25,9 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
                 print(package, "is already installed")
             else:
                 print("Installing", package)
-                install_cmd.append(package)
-                install = run(install_cmd, capture_output=True)
+                install_cmd_list = install_cmd[:]
+                install_cmd_list.append(package)
+                install = run(install_cmd_list, capture_output=True)
                 with open(r"error.txt", "a") as file_object:
                     print(install.stderr, file=file_object)
 
@@ -38,8 +39,9 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
             print(pkg, "is already installed")
         else:
             print("Installing", pkg)
-            install_cmd.append(pkg)
-            install = run(install_cmd, capture_output=True)
+            install_cmd_pkg = install_cmd[:]
+            install_cmd_pkg.append(pkg)
+            install = run(install_cmd_pkg, capture_output=True)
             with open(r"error.txt", "a") as file_object:
                 print(install.stderr, file=file_object)
 
@@ -49,8 +51,9 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
             is_available = run(check_cmd, capture_output=True, shell=True)
             if is_available.returncode == 0:
                 print(package, "is found")
-                remove_cmd.append(package)
-                remove = run(remove_cmd, capture_output=True)
+                remove_cmd_list = remove_cmd[:]
+                remove_cmd_list.append(package)
+                remove = run(remove_cmd_list, capture_output=True)
                 with open(r"error.txt", "a") as file_object:
                     print(remove.stderr, file=file_object)
             else:
@@ -61,9 +64,10 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
         is_available = run(check_cmd, capture_output=True, shell=True)
         print(is_available.returncode)
         if is_available.returncode == 0:
-            remove_cmd.append(pkg)
+            remove_cmd_pkg = remove_cmd[:]
+            remove_cmd_pkg.append(pkg)
             print(pkg, "is found")
-            remove = run(remove_cmd, capture_output=True)
+            remove = run(remove_cmd_pkg, capture_output=True)
             with open(r"error.txt", "a") as file_object:
                 print(remove.stderr, file=file_object)
         else:
