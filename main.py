@@ -19,7 +19,7 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
                 print("Installing", package)
                 install_cmd_list = f"{install_cmd} {package}"
                 install = run(install_cmd_list, capture_output=True, shell=True)
-                with open(r"error.txt", "w") as file_object:
+                with open(r"error.txt", "a") as file_object:
                     print(install.stderr, file=file_object)
 
     elif install and pkg:
@@ -32,7 +32,7 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
             print("Installing", pkg)
             install_cmd_pkg = f"{install_cmd} {pkg}"
             install = run(install_cmd_pkg, capture_output=True, shell=True)
-            with open(r"error.txt", "w") as file_object:
+            with open(r"error.txt", "a") as file_object:
                 print(install.stderr, file=file_object)
 
     elif remove and pkg_list:
@@ -43,7 +43,7 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
                 print(package, "is found")
                 remove_cmd_list = f"{remove_cmd} {package}"
                 remove = run(remove_cmd_list, capture_output=True, shell=True)
-                with open(r"error.txt", "w") as file_object:
+                with open(r"error.txt", "a") as file_object:
                     print(remove.stderr, file=file_object)
             else:
                 print(package, "not found")
@@ -56,7 +56,7 @@ def zypp(install=None, remove=None, pkg_list=None, pkg=None):
             remove_cmd_pkg = f"{remove_cmd} {pkg}"
             print(pkg, "is found")
             remove = run(remove_cmd_pkg, capture_output=True, shell=True)
-            with open(r"error.txt", "w") as file_object:
+            with open(r"error.txt", "a") as file_object:
                 print(remove.stderr, file=file_object)
         else:
             print(pkg, "not found")
@@ -87,15 +87,15 @@ if selection:
     for i in selection:
         zypp(install=True, pkg_list=i)
 
-# Install common packages
-options = ["multimedia", "utilities", "user"]
-for i in options:
-    zypp(install=True, pkg_list=i)
-
 # Removes all the packages under remove-list in packages.json
 # It's to be used to remove unneeded packages
 # Or packages creating conflicts
 zypp(remove=True, pkg_list="remove-list")
+
+# Install common packages
+options = ["multimedia", "utilities", "user"]
+for i in options:
+    zypp(install=True, pkg_list=i)
 
 # Error check message
 print("Check error.txt for any errors, before logging into ur system")
